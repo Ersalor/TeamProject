@@ -4,15 +4,15 @@
 def main():
     pass
 
-# ↓↓↓ Ersalor's work space ↓↓↓ 
+# ↓↓↓ Ersalor's workspace ↓↓↓ 
 
 
 
-# ↓↓↓ Mehmetcan's work space ↓↓↓
+# ↓↓↓ Mehmetcan's workspace ↓↓↓
 
 
 
-# ↓↓↓ Hasan's work space ↓↓↓
+# ↓↓↓ Hasan's workspace ↓↓↓
 
 
 
