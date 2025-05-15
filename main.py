@@ -31,7 +31,7 @@ If you want to quit enter Q or q""")
         if operation=="1":
             print("You choose operation 1")
         elif operation=="2":
-            print("You choose operation 2")
+            functions.list_Neighborhoods()
         elif operation=="3":       
             print("You choose operation 3")
         elif operation=="4":
