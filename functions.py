@@ -124,6 +124,53 @@ def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district
 
 # ↓↓↓ Mehmetcan's workspace ↓↓↓
 
+def delete_Neighborhoods():
+    while True:
+
+        with open("neighborhoods.txt","r",encoding="utf-8") as reader:
+            rows = reader.readlines()
+
+        print()
+        Deleting_province = input("Enter the province of the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
+        Deleting_district = input("Enter the district of the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
+        Deleting_neighborhoods = input("Enter the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
+
+        if Deleting_district == "PROVİNCE CENTER" or Deleting_district == "DİSTRİCT CENTER":
+            Deleting_district = Deleting_district.replace("İ","I")
+
+        Deleting = Deleting_neighborhoods + " " + Deleting_province + " " + Deleting_district
+
+        with open("neighborhoods.txt","w",encoding="utf-8") as file:
+            neighborhoods=[]
+            not_found = True
+            for row in rows:
+                parts=row.strip().split(" -> ")
+                if len(parts)==3 :
+                    
+                    neighborhood,province=parts[0].strip().rsplit(" ",1)
+                    district=parts[1]
+
+                elif len(parts)==2 :
+                    neighborhood,province=parts[0].rsplit(" ",1)
+                    typeparts=parts[1].split("-")
+
+                    if len(typeparts)==2:
+                        district=typeparts[1]
+                    else:
+                        district=typeparts[0]
+
+                Find_neighboorhoods = neighborhood + " " + province + " " + district
+                if Find_neighboorhoods != Deleting:
+                    file.write(row)
+                else:
+                    print("\nNeighborhood has been deleted\n")
+                    not_found = False
+
+        if not_found == True:
+            print("Neighborhood not found , try again.")
+        else:
+            list_Neighborhoods(is_certain=True,certain_district=Deleting_district,certain_province=Deleting_province)
+            break
 
 
 # ↓↓↓ Hasan's workspace ↓↓↓
