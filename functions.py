@@ -175,15 +175,7 @@ def delete_Neighborhoods():
 
 # ↓↓↓ Hasan's workspace ↓↓↓
 
-def AllNeighboodsList():
-    with open("neighborhoods.txt","r",encoding="utf-8") as rows:
-        list = []
-        for line in rows:
-            list.append(line.strip())
-        return list
 
-for line in AllNeighboodsList():    
-    print(line)
 
 if __name__=="__main__":
     main()
