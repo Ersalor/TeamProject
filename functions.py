@@ -5,29 +5,37 @@ def main():
     pass
 
 # ↓↓↓ Ersalor's workspace ↓↓↓
-def list_Neighborhoods():
-    print("Listing Types;\n"
-        "1)Listing neighborhoods in the province\n"
-        "2)Listing neighborhoods in the district")
-    list_Type=input("Please select the listing type:").strip()
-    print()
-    while list_Type not in ["1","2"]:
-        list_Type=input("Enter a valid option(1 or 2):").strip()
+def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=None):
+    if is_certain==False:
         
-    print()
-    place=input("Which {} would you like to see?:".format("province" if list_Type=="1" else "district")).strip()
-    print()
-    district_city=""
-    if list_Type=="2":
-        district_city=input("Which city is that district in?:") 
+        print("Listing Types;\n"
+            "1)Listing neighborhoods in the province\n"
+            "2)Listing neighborhoods in the district")
+        list_Type=input("Please select the listing type:").strip()
         print()
-    print("Order types;\n"
-        "1)Ascending Order\n"
-        "2)Descending Order")
-    order_Type=input("Please select the listing type:").strip()
-    print()
-    while order_Type not in ["1","2"]:
-        order_Type=input("Enter a valid option(1 or 2):").strip()
+        while list_Type not in ["1","2"]:
+            list_Type=input("Enter a valid option(1 or 2):").strip()
+            
+        print()
+        place=input("Which {} would you like to see?:".format("province" if list_Type=="1" else "district")).strip()
+        print()
+        district_city=""
+        if list_Type=="2":
+            district_city=input("Which city is that district in?:") 
+            print()
+        print("Order types;\n"
+            "1)Ascending Order\n"
+            "2)Descending Order")
+        order_Type=input("Please select the listing type:").strip()
+        print()
+        while order_Type not in ["1","2"]:
+            order_Type=input("Enter a valid option(1 or 2):").strip()
+            
+    elif is_certain==True:
+        list_Type="2"
+        order_Type="1"
+        place=certain_district
+        district_city=certain_province
 
     #####################################################################    
     def turkish_lower(text):
@@ -96,7 +104,7 @@ def list_Neighborhoods():
             print("#"*50)    
             print(f"{len(neighborhoods)} neighborhoods have found in {place.capitalize()}\n")
         else:
-            print(f"\nThere is no {"city" if list_Type=="1" else "district"} named {place.capitalize()} in Turkey.\n")    
+            print(f"\nThere is no {'city' if list_Type=='1' else 'district'} named {place.capitalize()} in Turkey.\n")    
 
     elif order_Type=="2":
         i=0
@@ -110,7 +118,7 @@ def list_Neighborhoods():
             print("#"*50)   
             print(f"{len(neighborhoods)} neighborhoods have found in {place.capitalize()}\n")
         else:
-            print(f"\nThere is no {"city" if list_Type=="1" else "district"} named {place.capitalize()} in Turkey.\n") 
+            print(f"\nThere is no {'city' if list_Type=='1' else 'district'} named {place.capitalize()} in Turkey.\n")
 
 
 
