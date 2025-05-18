@@ -35,9 +35,9 @@ If you want to quit enter Q or q""")
         elif operation=="3":       
             print("You choose operation 3")
         elif operation=="4":
-            functions.delete_Neighborhoods()
+            functions.deleting_Neighborhoods()
         elif operation=="5":
-            print("You choose operation 5")
+            functions.updating_Neighborgoods()
         elif operation=="6":
             print("You choose operation 6")
         elif operation=="7":
