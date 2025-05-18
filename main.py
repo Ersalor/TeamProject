@@ -29,7 +29,7 @@ If you want to quit enter Q or q""")
             continue
          
         if operation=="1":
-            print("You choose operation 1")
+            functions.search_Neighborhoods()
         elif operation=="2":
             functions.list_Neighborhoods()
         elif operation=="3":       
