@@ -211,7 +211,7 @@ def search_Neighborhoods():
 
 # ↓↓↓ Mehmetcan's workspace ↓↓↓
 
-def deleting_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=None,certain_neighborhood=None):
+def delete_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=None,certain_neighborhood=None):
     while True:
         
         with open("neighborhoods.txt","r",encoding="utf-8") as reader:
@@ -269,7 +269,7 @@ def deleting_Neighborhoods(*,is_certain=False,certain_province=None,certain_dist
                 list_Neighborhoods(is_certain=True,certain_district=Deleting_district,certain_province=Deleting_province)
             break
 
-def updating_Neighborgoods():
+def update_Neighborgoods():
     while True:
         with open("neighborhoods.txt","r",encoding="utf-8") as reader:
             rows = reader.readlines()
@@ -278,7 +278,7 @@ def updating_Neighborgoods():
         Updating_district = input("Enter the district of the neighborhood to be updated : ").strip().replace("ı","I").replace("i","İ").upper()
         Deleting_neighborhood = input("Enter the old name of the neighborhood : ").strip().replace("ı","I").replace("i","İ").upper()
         Updating_neighborhood = input("Enter the new name of the neighborhood : ").strip().replace("ı","I").replace("i","İ").upper()
-        deleting_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district,certain_neighborhood=Deleting_neighborhood)
+        delete_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district,certain_neighborhood=Deleting_neighborhood)
 
         with open("neighborhoods.txt","r",encoding="utf-8") as new_reader:
             new_rows = new_reader.readlines()
@@ -289,7 +289,7 @@ def updating_Neighborgoods():
     #add fonsiyonundan sonra açılacak     
     #adding_neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district,certain_neighborhood=Updating_neighborhood)
     print("Neighborhood has been updated")
-    print(list_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district))
+    list_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district)
 
 
 # ↓↓↓ Hasan's workspace ↓↓↓
