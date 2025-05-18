@@ -5,6 +5,8 @@ def main():
     pass
 
 # ↓↓↓ Ersalor's workspace ↓↓↓
+
+###############################################################################################
 def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=None):
     if is_certain==False:
         
@@ -120,7 +122,92 @@ def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district
         else:
             print(f"\nThere is no {'city' if list_Type=='1' else 'district'} named {place.capitalize()} in Turkey.\n")
 
+###############################################################################################
+def search_Neighborhoods():
 
+    print()
+    print("Searching Types;\n"
+        "1)Search for exact matching\n"
+        "2)Search for partial matching")
+    search_Type=input("Please select the listing type:").strip()
+
+    while search_Type not in ["1","2"]:
+        search_Type=input("Enter a valid option(1 or 2):").strip()
+    print()
+
+    place=input("Which neighborhood would you like to see?:").strip()
+    print()
+    
+    #####################################################################    
+    def turkish_lower(text):
+        return text.replace("I","ı").replace("İ","i").lower()
+    #####################################################################
+
+    with open("neighborhoods.txt","r",encoding="utf-8") as file:
+        count=0
+        neighborhoods=[]
+        for line in file:
+            count+=1
+            parts=line.strip().split(" -> ") #part[0]=> mahalle + il,part[1]=> ilce,part[2]=>il+konum bilgisi
+            if len(parts)==3:
+                
+                neighborhood,province=parts[0].strip().rsplit(" ",1)
+                district=parts[1]
+                typeparts=parts[2].split("-")
+                
+                if len(typeparts)==2:
+                    centertype=typeparts[1]
+                else:
+                    centertype=typeparts[0]
+
+            elif(len(parts)==2):
+                neighborhood,province=parts[0].rsplit(" ",1)
+                typeparts=parts[1].split("-")
+                
+                if len(typeparts)==2:
+                    centertype=typeparts[1]
+                else:
+                    centertype=typeparts[0]
+
+            converted_neighborhood=turkish_lower(neighborhood)
+            converted_province=turkish_lower(province)
+            converted_district=turkish_lower(district)
+            converted_place=turkish_lower(place)
+            
+            if search_Type=="1": #Exact matching
+                if place in converted_neighborhood and len(place)==len(neighborhood):
+                    neighborhoods.append([neighborhood,province,district])
+        
+            elif search_Type=="2": #Partial matching
+                if place in converted_neighborhood:
+                    neighborhoods.append([neighborhood,province,district])
+    #####################################################################
+    turkish_Alphabet="1 2 3 4 5 6 7 8 9 a b c ç d e f g ğ h ı i j k l m n o ö p r s ş t u ü v y z".split()
+    def sorting_rule(list_name):
+        text=list_name[0]
+        list_of_characters=[]
+        for character in text.lower():
+            if character in turkish_Alphabet:
+                character_index=turkish_Alphabet.index(character)
+                list_of_characters.append(character_index)
+        return list_of_characters
+    #####################################################################    
+        
+        #Listing will be there
+    i=0
+    if len(neighborhoods)!=0:
+        print("Found Neighborhoods:")
+        neighborhoods.sort(key=sorting_rule)
+        while i<len(neighborhoods):
+            print(f"{i+1}) {neighborhoods[i][0]}\t({neighborhoods[i][1]}/{neighborhoods[i][2]}) ")
+            i+=1
+        print("#"*50)    
+        print(f"{len(neighborhoods)} neighborhoods have found\n")
+    else:
+        print(f"There is no neighborhood named {place.capitalize()} in Turkey.\n")
+
+###############################################################################################
+# Adding Function will be there soon...
 
 # ↓↓↓ Mehmetcan's workspace ↓↓↓
 
