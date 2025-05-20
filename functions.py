@@ -291,6 +291,44 @@ def update_Neighborgoods():
     print("Neighborhood has been updated")
     list_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district)
 
+def move_Neighborhoods():
+
+    while True:
+    
+        with open("new.txt","r",encoding="utf-8") as reader:
+            rows = reader.readlines() 
+    
+        old_Province = input("Enter the old province of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
+        old_District = input("Enter the old district of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
+        name_Neighborhood = input("Enter the neighborhood name : ").strip().replace("ı","I").replace("i","İ").upper()
+    
+        delete_Neighborhoods(is_certain=True,certain_province=old_Province,
+                                      certain_district=old_District,certain_neighborhood=name_Neighborhood)
+    
+        with open("new.txt","r",encoding="utf-8") as new_reader:
+            new_rows = new_reader.readlines()
+        if rows != new_rows:
+            break
+        
+    while True:
+    
+        with open("neihborhoods.txt","r",encoding="utf-8") as reader:
+            rows = reader.readlines() 
+    
+        new_Province = input("Enter the new province of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
+        new_District = input("Enter the new district of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
+    
+        #add fonksiyonundan sonra açılacak
+        #adding(is_certain = True , certain_province = new_Province ,
+        #      certain_district = new_District , certain_neighborhood = name_Neigborhood)
+    
+        with open("new.txt","r",encoding="utf-8") as new_reader:
+            new_rows = new_reader.readlines()
+        if rows != new_rows:
+            break
+        
+    list_Neighborhoods(is_certain = True,certain_province=new_Province,certain_district=new_District)
+
 
 # ↓↓↓ Hasan's workspace ↓↓↓
 
