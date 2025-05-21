@@ -3,8 +3,27 @@
 
 def main():
     pass
+# ↓↓↓ Shared functions ↓↓↓
 
-# ↓↓↓ Ersalor's workspace ↓↓↓
+#####################################################################    
+def turkish_lower(text):
+    return text.replace("I","ı").replace("İ","i").lower()
+#####################################################################
+def turkish_upper(text):
+    return text.replace("i","İ").replace("ı","I").upper()
+#####################################################################
+turkish_Alphabet="1 2 3 4 5 6 7 8 9 a b c ç d e f g ğ h ı i j k l m n o ö p r s ş t u ü v y z".split()
+def sorting_rule(list_name):
+    text=list_name[0]
+    list_of_characters=[]
+    for character in text.lower():
+        if character in turkish_Alphabet:
+            character_index=turkish_Alphabet.index(character)
+            list_of_characters.append(character_index)
+    return list_of_characters
+#####################################################################
+
+# ↓↓↓ Mehmet Zeki's workspace ↓↓↓
 
 ###############################################################################################
 def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=None):
@@ -40,9 +59,6 @@ def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district
         district_city=certain_province
 
     #####################################################################    
-    def turkish_lower(text):
-        return text.replace("I","ı").replace("İ","i").lower()
-    #####################################################################
 
     with open("neighborhoods.txt","r",encoding="utf-8") as file:
         count=0
@@ -64,11 +80,7 @@ def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district
             elif(len(parts)==2):
                 neighborhood,province=parts[0].rsplit(" ",1)
                 typeparts=parts[1].split("-")
-                
-                if len(typeparts)==2:
-                    centertype=typeparts[1]
-                else:
-                    centertype=typeparts[0]
+                district=typeparts[0]
 
             converted_neighborhood=turkish_lower(neighborhood)
             converted_province=turkish_lower(province)
@@ -84,17 +96,9 @@ def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district
                 if converted_place==converted_district and converted_district_city==converted_province:
                     if neighborhood not in neighborhoods:
                         neighborhoods.append(neighborhood)
+    
     #####################################################################
-    turkish_Alphabet="1 2 3 4 5 6 7 8 9 a b c ç d e f g ğ h ı i j k l m n o ö p r s ş t u ü v y z".split()
-    def sorting_rule(list_name):
-        text=list_name[0]
-        list_of_characters=[]
-        for character in text.lower():
-            if character in turkish_Alphabet:
-                character_index=turkish_Alphabet.index(character)
-                list_of_characters.append(character_index)
-        return list_of_characters
-    #####################################################################    
+      
     if order_Type=="1":
         i=0
         if len(neighborhoods)!=0:
@@ -103,8 +107,11 @@ def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district
             while i<len(neighborhoods):
                 print((f"{i+1}){neighborhoods[i][0]}\t({neighborhoods[i][1]})") if list_Type=="1" else (f"{i+1}){neighborhoods[i]}"))
                 i+=1
-            print("#"*50)    
-            print(f"{len(neighborhoods)} neighborhoods have found in {place.capitalize()}\n")
+            print("#"*50)
+            if list_Type=="1":
+                print(f"{len(neighborhoods)} neighborhoods have found in {place.capitalize()}\n")
+            else:
+                print(f"{len(neighborhoods)} neighborhoods have found in {district_city.capitalize()}/{place.capitalize()}\n")    
         else:
             print(f"\nThere is no {'city' if list_Type=='1' else 'district'} named {place.capitalize()} in Turkey.\n")    
 
@@ -118,7 +125,10 @@ def list_Neighborhoods(*,is_certain=False,certain_province=None,certain_district
                 print((f"{i+1}){neighborhoods[i][0]}\t({neighborhoods[i][1]})") if list_Type=="1" else (f"{i+1}){neighborhoods[i]}"))
                 i+=1
             print("#"*50)   
-            print(f"{len(neighborhoods)} neighborhoods have found in {place.capitalize()}\n")
+            if list_Type=="1":
+                print(f"{len(neighborhoods)} neighborhoods have found in {place.capitalize()}\n")
+            else:
+                print(f"{len(neighborhoods)} neighborhoods have found in {district_city.capitalize()}/{place.capitalize()}\n")
         else:
             print(f"\nThere is no {'city' if list_Type=='1' else 'district'} named {place.capitalize()} in Turkey.\n")
 
@@ -139,9 +149,6 @@ def search_Neighborhoods():
     print()
     
     #####################################################################    
-    def turkish_lower(text):
-        return text.replace("I","ı").replace("İ","i").lower()
-    #####################################################################
 
     with open("neighborhoods.txt","r",encoding="utf-8") as file:
         count=0
@@ -181,17 +188,7 @@ def search_Neighborhoods():
             elif search_Type=="2": #Partial matching
                 if place in converted_neighborhood:
                     neighborhoods.append([neighborhood,province,district])
-    #####################################################################
-    turkish_Alphabet="1 2 3 4 5 6 7 8 9 a b c ç d e f g ğ h ı i j k l m n o ö p r s ş t u ü v y z".split()
-    def sorting_rule(list_name):
-        text=list_name[0]
-        list_of_characters=[]
-        for character in text.lower():
-            if character in turkish_Alphabet:
-                character_index=turkish_Alphabet.index(character)
-                list_of_characters.append(character_index)
-        return list_of_characters
-    #####################################################################    
+    #####################################################################   
         
         #Listing will be there
     i=0
@@ -207,7 +204,69 @@ def search_Neighborhoods():
         print(f"There is no neighborhood named {place.capitalize()} in Turkey.\n")
 
 ###############################################################################################
-# Adding Function will be there soon...
+def add_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=None,certain_neighborhood=None):
+
+    if is_certain==False:
+        print("Please enter neighborhood informations;")
+        new_neighborhood=input("Neighborhood Name:").strip()
+        new_province=input("Province Name:").strip()
+        new_district=input("District Name:").strip()
+        print()
+        converted_new__neighborhood=turkish_lower(new_neighborhood)
+        converted_new_province=turkish_lower(new_province)
+        converted_new_district=turkish_lower(new_district)
+        new_location=[converted_new__neighborhood,converted_new_province,converted_new_district]
+    else:
+        new_neighborhood=certain_neighborhood
+        new_province=certain_province
+        new_district=certain_district    
+
+    #####################################################################
+
+    with open("neighborhoods.txt","r",encoding="utf-8") as file:
+        count=0
+        neighborhoods=[]
+        for line in file:
+            count+=1
+            parts=line.strip().split(" -> ") #part[0]=> mahalle + il,part[1]=> ilce,part[2]=>il+konum bilgisi
+            if len(parts)==3:
+                
+                neighborhood,province=parts[0].strip().rsplit(" ",1)
+                district=parts[1]
+
+            elif(len(parts)==2):
+                neighborhood,province=parts[0].rsplit(" ",1)
+                typeparts=parts[1].split("-")
+                district=typeparts[0]
+
+            converted_neighborhood=turkish_lower(neighborhood)
+            converted_province=turkish_lower(province)
+            converted_district=turkish_lower(district)
+            
+            neighborhoods.append([converted_neighborhood,converted_province,converted_district])
+        while new_location in neighborhoods:
+            print("A neighborhood like this already exists.Please enter a new one.")
+            new_neighborhood=input("Neighborhood Name:")
+            new_province=input("Province Name:")
+            new_district=input("District Name:")
+            print()
+            converted_new__neighborhood=turkish_lower(new_neighborhood)
+            converted_new_province=turkish_lower(new_province)
+            converted_new_district=turkish_lower(new_district)
+            new_location=[converted_new__neighborhood,converted_new_province,converted_new_district]
+        
+        if new_location not in neighborhoods:
+            with open("neighborhoods.txt","a",encoding="utf-8") as file:
+                upper_new_neighborhood=turkish_upper(new_neighborhood)
+                upper_new_province=turkish_upper(new_province)
+                upper_new_district=turkish_upper(new_district)
+                file.write(f"\n{upper_new_neighborhood} {upper_new_province} -> {upper_new_district} -> {upper_new_district}")
+                
+            
+    #####################################################################
+
+        #Listing will be there
+        list_Neighborhoods(is_certain=True,certain_district=new_district,certain_province=new_province)
 
 # ↓↓↓ Mehmetcan's workspace ↓↓↓
 
