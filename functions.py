@@ -211,21 +211,27 @@ def search_Neighborhoods():
 
 # ↓↓↓ Mehmetcan's workspace ↓↓↓
 
-def delete_Neighborhoods():
+def delete_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=None,certain_neighborhood=None):
     while True:
-
+        
         with open("neighborhoods.txt","r",encoding="utf-8") as reader:
             rows = reader.readlines()
 
-        print()
-        Deleting_province = input("Enter the province of the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
-        Deleting_district = input("Enter the district of the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
-        Deleting_neighborhoods = input("Enter the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
+        if is_certain == False:
+
+            Deleting_province = input("Enter the province of the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
+            Deleting_district = input("Enter the district of the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
+            Deleting_neighborhood = input("Enter the neighborhood to be deleted : ").strip().replace("ı","I").replace("i","İ").upper()
+
+        else:
+            Deleting_province=certain_province
+            Deleting_district=certain_district
+            Deleting_neighborhood=certain_neighborhood
 
         if Deleting_district == "PROVİNCE CENTER" or Deleting_district == "DİSTRİCT CENTER":
             Deleting_district = Deleting_district.replace("İ","I")
 
-        Deleting = Deleting_neighborhoods + " " + Deleting_province + " " + Deleting_district
+        Deleting = Deleting_neighborhood + " " + Deleting_province + " " + Deleting_district
 
         with open("neighborhoods.txt","w",encoding="utf-8") as file:
             neighborhoods=[]
@@ -246,18 +252,82 @@ def delete_Neighborhoods():
                     else:
                         district=typeparts[0]
 
-                Find_neighboorhoods = neighborhood + " " + province + " " + district
-                if Find_neighboorhoods != Deleting:
+                Find_neighboorhood = neighborhood + " " + province + " " + district
+                if Find_neighboorhood != Deleting:
                     file.write(row)
                 else:
-                    print("\nNeighborhood has been deleted\n")
+                    if is_certain == False:
+                        print("Neighborhood has been deleted")
                     not_found = False
 
         if not_found == True:
             print("Neighborhood not found , try again.")
+            if is_certain==True:
+                break
         else:
-            list_Neighborhoods(is_certain=True,certain_district=Deleting_district,certain_province=Deleting_province)
+            if is_certain == False:
+                list_Neighborhoods(is_certain=True,certain_district=Deleting_district,certain_province=Deleting_province)
             break
+
+def update_Neighborgoods():
+    while True:
+        with open("neighborhoods.txt","r",encoding="utf-8") as reader:
+            rows = reader.readlines()
+
+        Updating_province = input("Enter the province of the neighborhood to be updated : ").strip().replace("ı","I").replace("i","İ").upper()
+        Updating_district = input("Enter the district of the neighborhood to be updated : ").strip().replace("ı","I").replace("i","İ").upper()
+        Deleting_neighborhood = input("Enter the old name of the neighborhood : ").strip().replace("ı","I").replace("i","İ").upper()
+        Updating_neighborhood = input("Enter the new name of the neighborhood : ").strip().replace("ı","I").replace("i","İ").upper()
+        delete_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district,certain_neighborhood=Deleting_neighborhood)
+
+        with open("neighborhoods.txt","r",encoding="utf-8") as new_reader:
+            new_rows = new_reader.readlines()
+
+        if rows != new_rows:
+            break
+
+    #add fonsiyonundan sonra açılacak     
+    #adding_neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district,certain_neighborhood=Updating_neighborhood)
+    print("Neighborhood has been updated")
+    list_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district)
+
+def move_Neighborhoods():
+
+    while True:
+    
+        with open("new.txt","r",encoding="utf-8") as reader:
+            rows = reader.readlines() 
+    
+        old_Province = input("Enter the old province of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
+        old_District = input("Enter the old district of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
+        name_Neighborhood = input("Enter the neighborhood name : ").strip().replace("ı","I").replace("i","İ").upper()
+    
+        delete_Neighborhoods(is_certain=True,certain_province=old_Province,
+                                      certain_district=old_District,certain_neighborhood=name_Neighborhood)
+    
+        with open("new.txt","r",encoding="utf-8") as new_reader:
+            new_rows = new_reader.readlines()
+        if rows != new_rows:
+            break
+        
+    while True:
+    
+        with open("neihborhoods.txt","r",encoding="utf-8") as reader:
+            rows = reader.readlines() 
+    
+        new_Province = input("Enter the new province of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
+        new_District = input("Enter the new district of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
+    
+        #add fonksiyonundan sonra açılacak
+        #adding(is_certain = True , certain_province = new_Province ,
+        #      certain_district = new_District , certain_neighborhood = name_Neigborhood)
+    
+        with open("new.txt","r",encoding="utf-8") as new_reader:
+            new_rows = new_reader.readlines()
+        if rows != new_rows:
+            break
+        
+    list_Neighborhoods(is_certain = True,certain_province=new_Province,certain_district=new_District)
 
 
 # ↓↓↓ Hasan's workspace ↓↓↓
