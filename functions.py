@@ -212,14 +212,17 @@ def add_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=
         new_province=input("Province Name:").strip()
         new_district=input("District Name:").strip()
         print()
-        converted_new__neighborhood=turkish_lower(new_neighborhood)
-        converted_new_province=turkish_lower(new_province)
-        converted_new_district=turkish_lower(new_district)
-        new_location=[converted_new__neighborhood,converted_new_province,converted_new_district]
     else:
         new_neighborhood=certain_neighborhood
         new_province=certain_province
         new_district=certain_district    
+
+    #####################################################################
+
+    converted_new__neighborhood=turkish_lower(new_neighborhood)
+    converted_new_province=turkish_lower(new_province)
+    converted_new_district=turkish_lower(new_district)
+    new_location=[converted_new__neighborhood,converted_new_province,converted_new_district]
 
     #####################################################################
 
@@ -247,6 +250,7 @@ def add_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=
         while new_location in neighborhoods:
             print("A neighborhood like this already exists.Please enter a new one.")
             new_neighborhood=input("Neighborhood Name:")
+            #check is_certain conditions here for updating and moving functions 
             new_province=input("Province Name:")
             new_district=input("District Name:")
             print()
@@ -332,10 +336,11 @@ def update_Neighborgoods():
     while True:
         with open("neighborhoods.txt","r",encoding="utf-8") as reader:
             rows = reader.readlines()
-
+        print()
         Updating_province = input("Enter the province of the neighborhood to be updated : ").strip().replace("ı","I").replace("i","İ").upper()
         Updating_district = input("Enter the district of the neighborhood to be updated : ").strip().replace("ı","I").replace("i","İ").upper()
         Deleting_neighborhood = input("Enter the old name of the neighborhood : ").strip().replace("ı","I").replace("i","İ").upper()
+        print()
         Updating_neighborhood = input("Enter the new name of the neighborhood : ").strip().replace("ı","I").replace("i","İ").upper()
         delete_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district,certain_neighborhood=Deleting_neighborhood)
 
@@ -345,18 +350,18 @@ def update_Neighborgoods():
         if rows != new_rows:
             break
 
-    #add fonsiyonundan sonra açılacak     
-    #adding_neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district,certain_neighborhood=Updating_neighborhood)
+    add_Neighborhoods(is_certain=True,certain_province=Updating_province,
+                        certain_district=Updating_district,certain_neighborhood=Updating_neighborhood)
+    
     print("Neighborhood has been updated")
-    list_Neighborhoods(is_certain=True,certain_province=Updating_province,certain_district=Updating_district)
 
 def move_Neighborhoods():
 
     while True:
     
-        with open("new.txt","r",encoding="utf-8") as reader:
+        with open("neighborhoods.txt","r",encoding="utf-8") as reader:
             rows = reader.readlines() 
-    
+        print()
         old_Province = input("Enter the old province of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
         old_District = input("Enter the old district of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
         name_Neighborhood = input("Enter the neighborhood name : ").strip().replace("ı","I").replace("i","İ").upper()
@@ -364,29 +369,26 @@ def move_Neighborhoods():
         delete_Neighborhoods(is_certain=True,certain_province=old_Province,
                                       certain_district=old_District,certain_neighborhood=name_Neighborhood)
     
-        with open("new.txt","r",encoding="utf-8") as new_reader:
+        with open("neighborhoods.txt","r",encoding="utf-8") as new_reader:
             new_rows = new_reader.readlines()
         if rows != new_rows:
             break
         
     while True:
     
-        with open("neihborhoods.txt","r",encoding="utf-8") as reader:
+        with open("neighborhoods.txt","r",encoding="utf-8") as reader:
             rows = reader.readlines() 
-    
+        print()
         new_Province = input("Enter the new province of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
         new_District = input("Enter the new district of the neighborhood to be moved : ").strip().replace("ı","I").replace("i","İ").upper()
     
-        #add fonksiyonundan sonra açılacak
-        #adding(is_certain = True , certain_province = new_Province ,
-        #      certain_district = new_District , certain_neighborhood = name_Neigborhood)
+        add_Neighborhoods(is_certain = True , certain_province = new_Province ,
+              certain_district = new_District , certain_neighborhood = name_Neighborhood)
     
-        with open("new.txt","r",encoding="utf-8") as new_reader:
+        with open("neighborhoods.txt","r",encoding="utf-8") as new_reader:
             new_rows = new_reader.readlines()
         if rows != new_rows:
             break
-        
-    list_Neighborhoods(is_certain = True,certain_province=new_Province,certain_district=new_District)
 
 
 # ↓↓↓ Hasan's workspace ↓↓↓
