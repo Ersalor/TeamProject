@@ -250,9 +250,13 @@ def add_Neighborhoods(*,is_certain=False,certain_province=None,certain_district=
         while new_location in neighborhoods:
             print("A neighborhood like this already exists.Please enter a new one.")
             new_neighborhood=input("Neighborhood Name:")
-            #check is_certain conditions here for updating and moving functions 
-            new_province=input("Province Name:")
-            new_district=input("District Name:")
+            #check is_certain conditions here for updating and moving functions
+            if is_certain==False:
+                new_province=input("Province Name:")
+                new_district=input("District Name:")
+            else:
+                new_province=certain_province
+                new_district=certain_district
             print()
             converted_new__neighborhood=turkish_lower(new_neighborhood)
             converted_new_province=turkish_lower(new_province)
